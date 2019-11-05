@@ -1,4 +1,4 @@
-
+// import React from 'react';
 
 export const initialState = [
     {
@@ -9,7 +9,7 @@ export const initialState = [
 ];
 
 
-export const reducer = (state, action) => {
+export const todoReducer = (state, action) => {
     switch (action.type) {
         case 'addItem':
             return [{
