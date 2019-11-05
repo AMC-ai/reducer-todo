@@ -5,7 +5,7 @@ import { todoReducer, initialState } from '../reducers/todoReducer';
 import todoItem from './todoItem';
 
 
-const todoList = () => {
+export const todoList = () => {
     const [state, dispatch] = useReducer(todoReducer, initialState);
 
     const [additionalItem, setAdditionalItem] = useState(
@@ -29,4 +29,25 @@ const todoList = () => {
         })
     }
 
-}
+    return (
+        <div className='todo-list'>
+            <div>
+                {state.map(item =>
+                    <todoItem key={item.id} item={item} dispatch={dispatch} />
+                )}
+            </div>
+
+            <form onSubmit={handleSubmit}>
+                <input
+                    type='text'
+                    name='item'
+                    placeholder='Add Item'
+                    value={additionalItem.item}
+                    onChange={(e) => handleChanges(e)} />
+                <button>Add Item</button>
+            </form>
+            <button onClick={() => dispatch({ type: 'reset' })}>Clear Completed</button>
+        </div>
+    );
+};
+
