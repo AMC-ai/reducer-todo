@@ -18,10 +18,19 @@ export const todoReducer = (state, action) => {
                 id: Date.now()
             }];
         case "toggle":
-            return { ...state, count: state.count - 1 };
-        case "SET_NAME":
-            return { ...state, name: action.payload };
+            return state.map((item) => {
+                if (item.id === action.payload.id) {
+                    return {
+                        ...item,
+                        completed: !item.completed
+                    };
+                } else {
+                    return item;
+                }
+            })
+        case "reset":
+            return state.filter((item) => !item.completed);
         default:
-            throw new Error("No action matched!");
+            return state;
     }
 };
