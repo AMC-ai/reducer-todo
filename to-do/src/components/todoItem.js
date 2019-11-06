@@ -1,14 +1,16 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
-export const todoItem = (props) => {
-
+const TodoItem = (props) => {
     return (
-        <div className={`item ${props.item.completed ? 'completed' : ''}`}
-            onClick={() =>
-                props.dispatch({ type: 'toggle', payload: props.item })
-            }>
-            <div>{props.item.item}</div>
+        <div
+            className={`item ${props.item.completed ? 'completed' : '' }`}
+            style={{ textDecoration: props.item.completed ? "line-through" : "" }}
+            onClick={() => 
+                props.dispatch({ type: 'TOGGLE', payload: props.item })}>
+
+        <h3>{props.item.item}</h3>
         </div>
     )
-
 }
+
+export default TodoItem; 

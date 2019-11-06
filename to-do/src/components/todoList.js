@@ -1,53 +1,53 @@
-
 import React, { useReducer, useState } from 'react';
+import { reducer, initialState } from '../reducers/reducer';
+import TodoItem from './TodoItem';
 
-import { todoReducer, initialState } from '../reducers/todoReducer';
-import todoItem from './todoItem';
+function TodoList() {
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-
-export const todoList = () => {
-    const [state, dispatch] = useReducer(todoReducer, initialState);
-
-    const [additionalItem, setAdditionalItem] = useState(
+    const [newItem, setNewItem] = useState(
         {
             item: '',
             completed: false,
             id: Date.now()
         });
-    //handle event
-    const handleChanges = (e) => {
-        setAdditionalItem({ ...additionalItem, [e.target.name]: e.target.value })
+
+    function handleChanges(event) {
+        setNewItem({ ...newItem, [event.target.name]: event.target.value })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch({ type: 'addItem', playload: additionalItem });
-        setAdditionalItem({
-            item: '',
-            completed: false,
-            id: Date.now()
-        })
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        dispatch({ type: 'ADD_ITEM', payload: newItem });
+        setNewItem(
+            {
+                item: '',
+                completed: false,
+                id: Date.now()
+            }
+        )
     }
+
 
     return (
-        <div className='todo-list'>
+        <div>
             <div>
                 {state.map(item =>
-                    <todoItem key={item.id} item={item} dispatch={dispatch} />
+                    <TodoItem key={item.id} item={item} dispatch={dispatch} />
                 )}
             </div>
-
             <form onSubmit={handleSubmit}>
-                <input
-                    type='text'
-                    name='item'
-                    placeholder='Add Item'
-                    value={additionalItem.item}
+                <input type="text"
+                    name="item"
+                    placeholder="Add New Item"
+                    value={newItem.item}
                     onChange={(e) => handleChanges(e)} />
-                <button>Add Item</button>
+                <button>Submit</button>
             </form>
-            <button onClick={() => dispatch({ type: 'reset' })}>Clear Completed</button>
+            <button onClick={() => dispatch({ type: 'CLEAR_COMPLETE' })}>Clear Completed</button>
         </div>
-    );
+    )
 };
 
+export default TodoList; 

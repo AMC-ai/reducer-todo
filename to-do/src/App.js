@@ -1,12 +1,12 @@
 import React from 'react';
-import todoList from './components/todoList';
+import TodoList from './components/TodoList';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <todoList />>
+        <TodoList />
       </header>
     </div>
   );
