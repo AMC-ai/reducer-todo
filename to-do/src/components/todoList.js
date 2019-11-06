@@ -12,8 +12,8 @@ function TodoList() {
             id: Date.now()
         });
 
-    function handleChanges(event) {
-        setNewItem({ ...newItem, [event.target.name]: event.target.value })
+    function handleChanges(e) {
+        setNewItem({ ...newItem, [e.target.name]: e.target.value })
     }
 
 
